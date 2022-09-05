@@ -1,0 +1,24 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+int main()
+{
+	int C, N, L, sum = 0, iNum[1000] = { 0 };
+	double min[1000] = { 0 };
+	scanf("%d", &C);
+	for (int i = 0; i < C; i++) {
+		scanf("%d %d", &N, &L);
+		for (int j = 0; j < N; j++) {
+			scanf("%d", &iNum[j]);
+			if (j < L) sum += iNum[j];
+		}
+		min[i] = sum / (double)L;
+		for (int j = 0; j < N - L; j++) {
+			if (min[i] > (sum + iNum[L + j]) / ((double)L + 1.0 + j)) {
+				min[i] = (sum + iNum[L + j]) / ((double)L + 1.0 + j);
+			}
+			sum += iNum[L + j];
+		}
+		printf("%.7lf\n", min[i]);
+		sum = 0;
+	}
+}
